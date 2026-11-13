@@ -8,6 +8,8 @@
 </head>
 <body>
     <?php
+        require_once __DIR__ . '/includes/conexao.php';
+        require_once __DIR__ . '/includes/autenticacao.php';
         include_once 'login.php';
     ?>
 </body>
