@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $num_telefone = trim($_POST['num_telefone'] ?? '');
     $senha = $_POST['senha'];
 
-    if($apelido === '' | $email === '' | $senha === ''){
+    if($apelido === '' || $email === '' || $senha === ''){
         $erro = 'Preencha todos os campos.';
     }else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $erro = 'Digite um email valido.';
@@ -19,14 +19,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }else{
         $senhaCript = password_hash($senha, PASSWORD_DEFAULT);
         try{
-            $sql = 'insert into usuarios (apelido, email, senha) values (:apelido, :email, :email)';
+            $sql = 'insert into usuarios (apelido, email, numero, senha) values (:apelido, :email, :num_telefone, :senha)';
             $stmt = $pdo->prepare($sql);
 
             $stmt->execute([
                 ':apelido' => $apelido,
                 ':email' => $email,
+                ':num_telefone' => $num_telefone,
                 ':senha' => $senhaCript
             ]);
+
             header('Location: /login.php');
             exit;
         }catch (PDOException $e){

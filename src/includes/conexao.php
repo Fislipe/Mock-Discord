@@ -18,8 +18,8 @@ try {
         PDO::ERRMODE_EXCEPTION
     );
 
-    echo ""; // Não é necessário exibir nada ao conectar.
-
+    echo ""; 
+    
 } catch (PDOException $erro) {
 
     die("Erro ao conectar com o banco de dados.");
