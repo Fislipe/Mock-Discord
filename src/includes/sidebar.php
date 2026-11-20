@@ -18,33 +18,35 @@ $servidores_liberados = $stmt->fetchAll();
         <title>Sidebar</title>
     </head>
     <body>
-        <ol>
-            <li>
-                <button type="button">
-                    <img src="../assets/img/icones/discord.png" alt="Pagina Inicial">
-                </button>
-            </li>
-                       
-            <?php
-            foreach($servidores_liberados as $servidores_liberados):
-                $sql2 = "select * from servidores where id = :id";
-                $stmt= $pdo->prepare($sql2);
-                $stmt->execute([
-                    ":id"=> $servidores_liberados['id_servidor']
-                ]);
-                $servidores = $stmt->fetch(PDO::FETCH_ASSOC); 
-            ?>
-            <li>
-                <button type="button">
-                    <img src="<?= htmlspecialchars($servidores['icone']) ?>" alt="Pagina Inicial">
-                </button>
-            </li>
-            <?php endforeach; ?>
-            <li>
-                <button type="button">
-                    <img src="../assets/img/icones/plus.png" alt="">
-                </button>
-            </li>
-        </ol>
+        <form method="get">
+            <ol>
+                <li>
+                    <button type="submit" name="aba" value="inicio">
+                        <img src="../assets/img/icones/discord.png" alt="Pagina Inicial">
+                    </button>
+                </li>
+                        
+                <?php
+                foreach($servidores_liberados as $servidores_liberados):
+                    $sql2 = "select * from servidores where id = :id";
+                    $stmt= $pdo->prepare($sql2);
+                    $stmt->execute([
+                        ":id"=> $servidores_liberados['id_servidor']
+                    ]);
+                    $servidores = $stmt->fetch(PDO::FETCH_ASSOC); 
+                ?>
+                <li>
+                    <button type="submit" name="aba" value="<?=  htmlspecialchars($servidores['id']) ?>">
+                        <img src="<?= htmlspecialchars($servidores['icone']) ?>" alt="Pagina Inicial">
+                    </button>
+                </li>
+                <?php endforeach; ?>
+                <li>
+                    <button type="submit" name="aba" value="add">
+                        <img src="../assets/img/icones/plus.png" alt="">
+                    </button>
+                </li>
+            </ol>
+        </form>
     </body>
 </html>
